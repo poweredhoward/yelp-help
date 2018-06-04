@@ -1,0 +1,84 @@
+
+/* Always set the map height explicitly to define the size of the div
+* element that contains the map. */
+/* Map for the landing page. */
+#map {
+    height: 100%;
+    width: 70%;
+    /* float: left; */
+    /*  */
+}  
+
+/* .blurred{
+    filter: blur(15px); 
+} */
+
+/* below map is commented out and will toggle between landing page (above) and results page (below)  */
+/* #map {
+    height: 100%; 
+    width: 50%; 
+    float: right;
+} */
+
+/* Optional: Makes the sample page fill the window. */
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    /* background-color: #de4e4e; */
+}
+
+#right-panel {
+    font-family: 'Roboto','sans-serif';
+    line-height: 30px;
+    padding-left: 10px;
+    float: right;
+    width: 28%;
+    padding-left: 2%;
+}
+
+#right-panel select, #right-panel input {
+    font-size: 15px;
+}
+
+#right-panel select {
+    width: 100%;
+}
+
+#right-panel i {
+    font-size: 12px;
+}
+
+
+#floating-panel {
+    position: absolute;
+    top: 40px;
+    left: 25%;
+    width: 600px;
+    height: 85%;
+    z-index: 5;
+    background-color: #d32323;
+    padding: 5px;
+    border: 1px solid #f5f5f5;
+    border-radius: 10px;
+    text-align: center;
+    font-family: 'Roboto','sans-serif';
+    line-height: 30px;
+    padding-left: 10px;
+    box-shadow: 10px 15px 60px #000000;
+    visibility: show; /*<<<<HIDDEN<<<<<<<HIDDEN<<<<<< *Trigger to toggle between show and hidden after user inputs have been recieved */
+}
+
+.box2 {
+    text-align: left;
+}
+
+.input{
+    width: 500px;
+    height: 60px;
+    font-size: 30px;
+    color: grey;
+}
+#output {
+    font-size: 11px;
+}
