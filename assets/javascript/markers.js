@@ -11,11 +11,11 @@ var locationd;
 var termd;
 var radiusd;
 var travelModed;
-var limitd = 6;
-var sort_byd = "distance" //Also can do by rating or best_match
+var limitd = 8;
+var sort_byd = "best_match" //Also can do by rating or best_match
 var open_nowd = true;
-var latituded = 34.040982;
-var longituded = -118.51400;
+var latituded = 34.064515;
+var longituded = -118.407064;
 var possibleDestinations = [];
 
 //Var are declared out since need to be global, but have to be assigned inside
@@ -42,7 +42,9 @@ function initMap() {
     directionsDisplay.setOptions({
         polylineOptions: {
             strokeColor: "red"
-        }
+            //editable: true
+        },
+       // draggable: true
     });
     // directionsDisplay.setOptions({
     //     option: google.maps.DirectionsRendererOptions({
@@ -73,10 +75,6 @@ function initMap() {
      
      directionsDisplay.setMap(map);
 
-        
-
-
-
 
     
 }
@@ -104,8 +102,10 @@ var placeMarkers = function() {
     },
     method: 'GET'
 
-    //Once the query has returned some businesses, do this
+    //Once the Yelp query has returned some businesses, do this
     }).then( function (response){
+        console.log(response);
+        var resultcount = 0;
         var results = response.businesses;
         //console.log(businesses);
         results.forEach( function(result){
@@ -120,13 +120,19 @@ var placeMarkers = function() {
             console.log("Address: " + result.location.address1 + " " + result.location.city);
             console.log("");
 
+
             //var coordinates = {"lat": result.coordinates.latitude, "lng": result.coordinates.longitude}; 
             // google.maps.LatLng(result.coordinates.latitude,result.coordinates.longitude);
             //possibleDestinations.push( new google.maps.LatLng(coordinates));
 
             //Results from Yelp are put in this array and given to Google
             //Business name and street address are all that Google needs to find the right place
-            possibleDestinations.push(result.name +", "+ result.location.address1);
+            //Only plot top 6
+            if( result.location.address1 !== null &&result.location.address1.length > 4 && resultcount <=6){
+                possibleDestinations.push(result.name +", "+ result.location.address1);
+                resultcount++;
+            }
+            
         });
 
     
@@ -136,7 +142,7 @@ var placeMarkers = function() {
         service.getDistanceMatrix({
             origins: [o],
             destinations: possibleDestinations,
-            travelMode: 'DRIVING',
+            travelMode: travelModed,
             unitSystem: google.maps.UnitSystem.IMPERIAL,
             avoidHighways: false,
             avoidTolls: false
@@ -144,6 +150,8 @@ var placeMarkers = function() {
         if (status !== 'OK') {
             alert('Error was: ' + status);
         } else {
+
+            console.log(response);
 
             //If successfully got distance matrix, put them on the map and
             //durations on the page
@@ -163,6 +171,8 @@ var placeMarkers = function() {
 
                 //Determine if icon is origin or destination (false=origin)
                 var icon = destinationIcon;
+                console.log("Status: " + status);
+                console.log("Index: " + index);
                 return function(results, status) {
                     if (status === 'OK') {
 
@@ -208,6 +218,7 @@ var placeMarkers = function() {
             //For origin only
             var placeOrigin = function(){
                 var icon = originIcon;
+                console.log("Status: " + status);
                 return function( results, status){
                     if (status === 'OK'){
 
@@ -252,16 +263,24 @@ var placeMarkers = function() {
                     //Read each destination for one origin
                     for (var j = 0; j < results.length; j++) {
 
-                        console.log(destinationList[j]);
+                        //Only plot/display if within user's timeframe
+                        if( closeEnough(results[j]) ){
+                            console.log(destinationList[j]);
 
-                        //Place destination on the map
-                        geocoder.geocode({'address': destinationList[j]},
-                            placeDestination(j));
-                        
-                        //Put results on the side bar
-                        outputDiv.innerHTML += originList[i] + ' to ' + destinationList[j] +
-                            ': ' + results[j].distance.text + ' in ' +
-                            results[j].duration.text + '<br>';
+                            //Place destination on the map
+                            geocoder.geocode({'address': destinationList[j]},
+                                placeDestination(j));
+                            
+                            //Put results on the side bar
+                            outputDiv.innerHTML += originList[i] + ' to ' + destinationList[j] +
+                                ': ' + results[j].distance.text + ' in ' +
+                                results[j].duration.text + '<br>';
+                        }
+
+                        else{
+                            console.log("*******Too far!!!!!!!******: " + 
+                            destinationList[j] + results[j].duration.text);
+                        }
                     }
                 }
             }
@@ -275,6 +294,7 @@ var placeMarkers = function() {
 
 
 
+
 //What to do when directions button is clicked
 $(document).on("click", ".directions", function(){
 
@@ -285,7 +305,7 @@ $(document).on("click", ".directions", function(){
     directionsService.route({
         origin: o,
         destination: d,
-        travelMode: 'DRIVING'
+        travelMode: travelModed
     }, function(response, status) {
         if(status === "OK"){
             //Get list of directions, put polyline on page, and put steps in panel
