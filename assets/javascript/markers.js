@@ -11,7 +11,7 @@ var locationd;
 var termd;
 var radiusd;
 var travelModed;
-var limitd = 6;
+var limitd = 8;
 var sort_byd = "distance" //Also can do by rating or best_match
 var open_nowd = true;
 var latituded = 34.040982;
@@ -73,10 +73,6 @@ function initMap() {
      
      directionsDisplay.setMap(map);
 
-        
-
-
-
 
     
 }
@@ -104,8 +100,9 @@ var placeMarkers = function() {
     },
     method: 'GET'
 
-    //Once the query has returned some businesses, do this
+    //Once the Yelp query has returned some businesses, do this
     }).then( function (response){
+        var resultcount = 0;
         var results = response.businesses;
         //console.log(businesses);
         results.forEach( function(result){
@@ -120,13 +117,19 @@ var placeMarkers = function() {
             console.log("Address: " + result.location.address1 + " " + result.location.city);
             console.log("");
 
+
             //var coordinates = {"lat": result.coordinates.latitude, "lng": result.coordinates.longitude}; 
             // google.maps.LatLng(result.coordinates.latitude,result.coordinates.longitude);
             //possibleDestinations.push( new google.maps.LatLng(coordinates));
 
             //Results from Yelp are put in this array and given to Google
             //Business name and street address are all that Google needs to find the right place
-            possibleDestinations.push(result.name +", "+ result.location.address1);
+            //Only plot top 6
+            if( result.location.address1.length > 8 && resultcount <=6){
+                possibleDestinations.push(result.name +", "+ result.location.address1);
+                resultcount++;
+            }
+            
         });
 
     
@@ -144,6 +147,8 @@ var placeMarkers = function() {
         if (status !== 'OK') {
             alert('Error was: ' + status);
         } else {
+
+            console.log(response);
 
             //If successfully got distance matrix, put them on the map and
             //durations on the page
@@ -163,6 +168,8 @@ var placeMarkers = function() {
 
                 //Determine if icon is origin or destination (false=origin)
                 var icon = destinationIcon;
+                console.log("Status: " + status);
+                console.log("Index: " + index);
                 return function(results, status) {
                     if (status === 'OK') {
 
@@ -208,6 +215,7 @@ var placeMarkers = function() {
             //For origin only
             var placeOrigin = function(){
                 var icon = originIcon;
+                console.log("Status: " + status);
                 return function( results, status){
                     if (status === 'OK'){
 
