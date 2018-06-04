@@ -15,43 +15,75 @@
     
     <script src="assets/javascript/markers.js"></script>
    
+    <link rel="stylesheet" type="text/css" media="screen" href="assets/css/reset.css" />
     <link rel="stylesheet" type="text/css" media="screen" href="assets/css/style.css" />
     
   </head>
   <body>
+
+    <!-- THIS IS HTML CODE FOR HEADER BAR AT TOP OF BROWSER WINDOW -->
+    <div id="header">
+      <p id="header-ptag">
+          <span class="box3" id="head-left">Type of food: </span>
+      <input type="text" class="input-header" id="cuisine" onfocus="this.value=''" value="You want tacos?">
+          <span class="box3">Your location: </span>
+      <input type="text" class="input-header" id="origin" onfocus="this.value=''" value="Where are you coming from?">
+          <span class="box3">Method of transportation: </span>
+      <!-- <input type="text" class="input"  id="transport" onfocus="this.value=''" value="Walk or drive?"> -->
+      <select name="transport-header" id="transport-header">
+          <option selected disabled hidden>Pick a transport method</option>
+          <option>Driving</option>
+          <option>Walking</option>
+          <option>Transit</option>
+      </select>
+          <span class="box3">Distance: </span>
+      <input type="text" class="input-header" id="distance" onfocus="this.value=''" value="Close or really close??">
+      <button id="btn">Submit</button>
+      </p>
+    
+    </div>
+
     <div id="right-panel" class="blurred">
         <h2>Results</h2>
         <div id="output"></div>
     </div>
 
     <div id="map" class="blurred"></div>
+
+    <!-- THIS IS FLOATING FORM PANEL THAT APPEARS ON PAGE LOAD  -->
     <div id="floating-panel">
   
-        <p>
-            <span class="box2">Type of food</span>
-        </p>
-        <input type="text" class="input" id="cuisine" onfocus="this.value=''" value="You want tacos?">
-        <br><br>
-        <p>
-            <span class="box2">Method of transportation</span>
-        </p>
+        <div class="box2">
+            <p>Type of food</p>
+        </div>
+        <input type="text" class="input" id="cuisine-float" onfocus="this.value=''" value="You want tacos?">
+
+        <div class="box2">
+            <p>Your location</p>
+        </div>
+        <input type="text" class="input" id="origin-float" onfocus="this.value=''" value="Where are you coming from?">
+
+        <div class="box2">
+            <p>Method of transportation</p>
+        </div>
         <!-- <input type="text" class="input"  id="transport" onfocus="this.value=''" value="Walk or drive?"> -->
-        <select id="transport">
+        <select name="transport-float" id="transport-float">
             <option selected disabled hidden>Pick a transport method</option>
             <option>Driving</option>
             <option>Walking</option>
+            <option>Transit</option>            
             <!-- <option>Transit</option> -->
         </select>
 
-        <br><br>
-        <p>
-            <span class="box2">Distance</span>
-        </p>
-        <input type="text" class="input"  id="duration" onfocus="this.value=''" value="Close or really close?">
-        <br><br>
-        <button id="btn">Submit</button>
 
-    </div>
+        <div class="box2">
+            <p>Distance</p>
+        </div>
+        <input type="text" class="input"  id="duration-float" onfocus="this.value=''" value="Close or really close?">
+        <br>
+        <button id="btn">Submit</button>
+        </div>
+
     <script src="assets/javascript/form.js"></script>
 
   </body>
