@@ -28,6 +28,7 @@ var markersArray;
 var destinationIcon;
 var originIcon;
 var map;
+var labels = "ABCDEFGHIJKLMNOP";
 
 function initMap() {
     
@@ -124,10 +125,10 @@ var placeMarkers = function() {
     method: 'GET'
 
     //Once the Yelp query has returned some businesses, do this
-    }).then( function (response){
-        console.log(response);
+    }).then( function (data){
+        console.log(data);
         var resultcount = 0;
-        var results = response.businesses;
+        var results = data.businesses;
         //console.log(businesses);
         results.forEach( function(result){
             console.log("Business name: " + result.name);
@@ -136,7 +137,7 @@ var placeMarkers = function() {
             // console.log("Phone: " + result.display_phone);
             // console.log("Distance: " + result.distance);
             // console.log("Price: " + result.price);
-            // console.log("Rating: " + result.rating);
+            console.log("Rating: " + result.rating);
             // console.log("Business id: " + result.id);
             console.log("Address: " + result.location.address1 + " " + result.location.city);
             console.log("");
@@ -214,6 +215,7 @@ var placeMarkers = function() {
                             title:possibleDestinations[index],
                             map: map,
                             position: results[0].geometry.location,
+                            //label: labels[index]
                             icon: icon
                         });
 
@@ -270,14 +272,25 @@ var placeMarkers = function() {
                 }
             }
 
+            function compare(a,b) {
+                if (a.duration.value < b.duration.value)
+                  return -1;
+                if (a.duration.value > b.duration.value)
+                  return 1;
+                return 0;
+              }
+
 
                 //Read the matrix
                 //Fortunate that the destinations are returned in the order they were given
                 for (var i = 0; i < originList.length; i++) {
                     //For one origin, list of results, one for each destination
                     var results = response.rows[i].elements;
+                    results.sort(compare);
                     console.log("results");
                     console.log(results);
+                   
+
                     
 
                     geocoder.geocode({'address': originList[i]},
@@ -295,9 +308,18 @@ var placeMarkers = function() {
                                 placeDestination(j));
                             
                             //Put results on the side bar
-                            outputDiv.innerHTML += originList[i] + ' to ' + destinationList[j] +
-                                ': ' + results[j].distance.text + ' in ' +
-                                results[j].duration.text + '<br>';
+                            // outputDiv.innerHTML += originList[i] + ' to ' + destinationList[j] +
+                            //     ': ' + results[j].distance.text + ' in ' +
+                            //     results[j].duration.text + "RATING: " + 
+                            //     data.businesses[j].rating + '<br>';
+
+                            var option = $("<div>").html(
+                                // "<b>" + labels[j] + "</b> 
+                                "To " +  data.businesses[j].name + ": " + results[j].distance.text
+                                + " in " + results[j].duration.text + "<br> Rating: " + data.businesses[j].rating
+                            )
+
+                            $("#output").append(option);
                         }
 
                         else{
