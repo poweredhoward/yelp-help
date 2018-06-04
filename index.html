@@ -12,8 +12,9 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     
     
-    <script src="assets/javascript/form.js"></script>
-
+    
+    <script src="assets/javascript/markers.js"></script>
+   
     <link rel="stylesheet" type="text/css" media="screen" href="assets/css/style.css" />
     
   </head>
@@ -34,23 +35,24 @@
         <p>
             <span class="box2">Method of transportation</span>
         </p>
-        <input type="text" class="input"  id="transport-method" onfocus="this.value=''" value="Walk or drive?">
+        <!-- <input type="text" class="input"  id="transport" onfocus="this.value=''" value="Walk or drive?"> -->
+        <select id="transport">
+            <option selected disabled hidden>Pick a transport method</option>
+            <option>Driving</option>
+            <option>Walking</option>
+            <!-- <option>Transit</option> -->
+        </select>
+
         <br><br>
         <p>
             <span class="box2">Distance</span>
         </p>
         <input type="text" class="input"  id="duration" onfocus="this.value=''" value="Close or really close?">
         <br><br>
-        <button id="go">Submit</button>
+        <button id="btn">Submit</button>
 
     </div>
-    
-       
-    
-    
-    <!-- <script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBOaX_9RIc24eqL--wXFjVUVfT6jCtcBco&callback=initMap">
-    </script> -->
-    <script src="assets/javascript/markers.js"></script>
+    <script src="assets/javascript/form.js"></script>
+
   </body>
 </html>

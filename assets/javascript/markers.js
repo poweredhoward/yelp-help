@@ -5,13 +5,17 @@ var proxy = 'https://cors-anywhere.herokuapp.com/';
 //var proxy = "https://cors-escape.herokuapp.com/";
 var url = "https://api.yelp.com/v3/businesses/search";
 var locationd;
-var termd = "italian food";
-var radiusd = 4000;
+// var termd = "italian food";
+// var radiusd = 4000;
+// var travelModed = 'DRIVING';
+var termd;
+var radiusd;
+var travelModed;
 var limitd = 6;
 var sort_byd = "distance" //Also can do by rating or best_match
 var open_nowd = true;
-var latituded = 34.047519;
-var longituded = -118.525081;
+var latituded = 34.040982;
+var longituded = -118.51400;
 var possibleDestinations = [];
 
 //Var are declared out since need to be global, but have to be assigned inside
@@ -19,6 +23,11 @@ var geocoder;
 var directionsDisplay;
 var directionsService;
 var o;
+var bounds;
+var markersArray;
+var destinationIcon;
+var originIcon;
+var map;
 
 function initMap() {
     
@@ -44,28 +53,58 @@ function initMap() {
     //Location object for origin
     o = new google.maps.LatLng({"lat": latituded, "lng":longituded});
 
-        $.ajax({
+     //Size map should be
+     bounds = new google.maps.LatLngBounds;
+     markersArray = [];
+
+
+     //What the markers will look like
+     destinationIcon = 'https://chart.googleapis.com/chart?' +
+         'chst=d_map_pin_letter&chld=D|FF0000|000000';
+     originIcon = 'https://chart.googleapis.com/chart?' +
+         'chst=d_map_pin_letter&chld=O|FFFF00|000000';
+
+     //Initialize map and Geocoder
+     map = new google.maps.Map(document.getElementById('map'), {
+         center: {lat: 34.047519, lng: -118.525081},
+         zoom: 14
+     });
+ 
+     
+     directionsDisplay.setMap(map);
+
         
-        //Making the Yelp query
-        // url: proxy + "https://api.yelp.com/v3/businesses/search?term=delis&latitude=37.786882&longitude=-122.399972",
-        url: proxy + "https://api.yelp.com/v3/businesses/search",
-        data: {
-            latitude: latituded,
-            longitude: longituded,
-            term: termd,
-            radius: radiusd,
-            sort_by: sort_byd,
-            open_now: open_nowd,
-            limit: limitd
 
-        },
-        headers: {
-            "Authorization":
-            "Bearer siEX8OCYbi_jlP5s9XfsZIzFp7Y6-wLg1E9CDaP3dMl9pUBv5oSNNXDWJfXrVinZHlUQD8ParDCMjkUjt4irK5k-qnVL0IOo0sA0BHpVJnXxcGMOMhGc6QiRAEEQW3Yx"
-        },
-        method: 'GET'
 
-        //Once the query has returned some businesses, do this
+
+
+    
+}
+
+
+var placeMarkers = function() {
+    $.ajax({
+        
+    //Making the Yelp query
+    // url: proxy + "https://api.yelp.com/v3/businesses/search?term=delis&latitude=37.786882&longitude=-122.399972",
+    url: proxy + "https://api.yelp.com/v3/businesses/search",
+    data: {
+        latitude: latituded,
+        longitude: longituded,
+        term: termd,
+        radius: radiusd,
+        sort_by: sort_byd,
+        // open_now: open_nowd,
+        limit: limitd
+
+    },
+    headers: {
+        "Authorization":
+        "Bearer siEX8OCYbi_jlP5s9XfsZIzFp7Y6-wLg1E9CDaP3dMl9pUBv5oSNNXDWJfXrVinZHlUQD8ParDCMjkUjt4irK5k-qnVL0IOo0sA0BHpVJnXxcGMOMhGc6QiRAEEQW3Yx"
+    },
+    method: 'GET'
+
+    //Once the query has returned some businesses, do this
     }).then( function (response){
         var results = response.businesses;
         //console.log(businesses);
@@ -90,25 +129,7 @@ function initMap() {
             possibleDestinations.push(result.name +", "+ result.location.address1);
         });
 
-        //Size map should be
-        var bounds = new google.maps.LatLngBounds;
-        var markersArray = [];
-
-
-        //What the markers will look like
-        var destinationIcon = 'https://chart.googleapis.com/chart?' +
-            'chst=d_map_pin_letter&chld=D|FF0000|000000';
-        var originIcon = 'https://chart.googleapis.com/chart?' +
-            'chst=d_map_pin_letter&chld=O|FFFF00|000000';
-
-        //Initialize map and Geocoder
-        var map = new google.maps.Map(document.getElementById('map'), {
-            center: {lat: 34.047519, lng: -118.525081},
-            zoom: 14
-        });
     
-        
-        directionsDisplay.setMap(map);
 
 
         var service = new google.maps.DistanceMatrixService;
@@ -250,11 +271,6 @@ function initMap() {
 
         
     });
-
-
-
-
-    
 }
 
 
