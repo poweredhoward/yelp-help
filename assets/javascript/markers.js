@@ -12,11 +12,12 @@ var termd;
 var radiusd;
 var travelModed;
 var limitd = 8;
-var sort_byd = "best_match" //Also can do by rating or best_match
+var sort_byd = "distance"; //Also can do by rating or best_match
 var open_nowd = true;
 var latituded = 34.064515;
 var longituded = -118.407064;
 var possibleDestinations = [];
+
 
 //Var are declared out since need to be global, but have to be assigned inside
 var geocoder;
@@ -24,7 +25,6 @@ var directionsDisplay;
 var directionsService;
 var o;
 var bounds;
-var markersArray;
 var destinationIcon;
 var originIcon;
 var map;
@@ -52,8 +52,34 @@ function initMap() {
     //     })
     // });
 
+     //Initialize map and Geocoder
+     map = new google.maps.Map(document.getElementById('map'), {
+        center: {lat: 34.047519, lng: -118.525081},
+        zoom: 12
+    });
+
+
     //Location object for origin
-    o = new google.maps.LatLng({"lat": latituded, "lng":longituded});
+    //o = new google.maps.LatLng({"lat": latituded, "lng":longituded});
+    // Geolocation
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function (position) {
+                var pos = {
+                    lat: position.coords.latitude,
+                    lng: position.coords.longitude
+                };
+                o = pos;
+                // infoWindow.setPosition(pos);
+                // infoWindow.setContent('You are around here!');
+                // infoWindow.open(map);
+                map.setCenter(pos);
+            }, function () {
+                handleLocationError(true, infoWindow, map.getCenter());
+            });
+        } else {
+            // Browser doesn't support Geolocation
+            handleLocationError(false, infoWindow, map.getCenter());
+        }
 
      //Size map should be
      bounds = new google.maps.LatLngBounds;
@@ -66,12 +92,7 @@ function initMap() {
      originIcon = 'https://chart.googleapis.com/chart?' +
          'chst=d_map_pin_letter&chld=O|FFFF00|000000';
 
-     //Initialize map and Geocoder
-     map = new google.maps.Map(document.getElementById('map'), {
-         center: {lat: 34.047519, lng: -118.525081},
-         zoom: 14
-     });
- 
+    
      
      directionsDisplay.setMap(map);
 
@@ -87,8 +108,8 @@ var placeMarkers = function() {
     // url: proxy + "https://api.yelp.com/v3/businesses/search?term=delis&latitude=37.786882&longitude=-122.399972",
     url: proxy + "https://api.yelp.com/v3/businesses/search",
     data: {
-        latitude: latituded,
-        longitude: longituded,
+        latitude: o.lat,
+        longitude: o.lng,
         term: termd,
         radius: radiusd,
         sort_by: sort_byd,
@@ -103,10 +124,10 @@ var placeMarkers = function() {
     method: 'GET'
 
     //Once the Yelp query has returned some businesses, do this
-    }).then( function (response){
-        console.log(response);
+    }).then( function (data){
+        console.log(data);
         var resultcount = 0;
-        var results = response.businesses;
+        var results = data.businesses;
         //console.log(businesses);
         results.forEach( function(result){
             console.log("Business name: " + result.name);
@@ -115,7 +136,7 @@ var placeMarkers = function() {
             // console.log("Phone: " + result.display_phone);
             // console.log("Distance: " + result.distance);
             // console.log("Price: " + result.price);
-            // console.log("Rating: " + result.rating);
+            console.log("Rating: " + result.rating);
             // console.log("Business id: " + result.id);
             console.log("Address: " + result.location.address1 + " " + result.location.city);
             console.log("");
@@ -151,6 +172,9 @@ var placeMarkers = function() {
             alert('Error was: ' + status);
         } else {
 
+            console.log("Possible Destinations");
+            console.log(possibleDestinations);
+
             console.log(response);
 
             //If successfully got distance matrix, put them on the map and
@@ -174,6 +198,8 @@ var placeMarkers = function() {
                 console.log("Status: " + status);
                 console.log("Index: " + index);
                 return function(results, status) {
+                    console.log("Weird result: ");
+                    console.log(results);
                     if (status === 'OK') {
 
                         //What to display when marker is clicked
@@ -190,10 +216,11 @@ var placeMarkers = function() {
                         
                         //Make marker and place it
                         var marker = new google.maps.Marker({
-                            title:possibleDestinations[index],
+                            title:possibleDestinations[index].split(",")[0],
                             map: map,
                             position: results[0].geometry.location,
-                            icon: icon
+                            label: labels[index],
+                            //icon: icon
                         });
 
                         //What to do when marker is clicked
@@ -220,6 +247,8 @@ var placeMarkers = function() {
                 var icon = originIcon;
                 console.log("Status: " + status);
                 return function( results, status){
+                    console.log("Weird result: ");
+                    console.log(results);
                     if (status === 'OK'){
 
                         var infowindow = new google.maps.InfoWindow({
@@ -249,12 +278,25 @@ var placeMarkers = function() {
                 }
             }
 
+            function compare(a,b) {
+                if (a.duration.value < b.duration.value)
+                  return -1;
+                if (a.duration.value > b.duration.value)
+                  return 1;
+                return 0;
+              }
+
 
                 //Read the matrix
                 //Fortunate that the destinations are returned in the order they were given
                 for (var i = 0; i < originList.length; i++) {
                     //For one origin, list of results, one for each destination
                     var results = response.rows[i].elements;
+                    results.sort(compare);
+                    console.log("results");
+                    console.log(results);
+                   
+
                     
 
                     geocoder.geocode({'address': originList[i]},
@@ -262,6 +304,20 @@ var placeMarkers = function() {
                     
                     //Read each destination for one origin
                     for (var j = 0; j < results.length; j++) {
+
+                        finalResults.push( {
+                            "name": possibleDestinations[j].split(",")[0],
+                            "address": possibleDestinations[j].split(",")[1],
+                            "rating": data.businesses[j].rating,
+                            "price": data.businesses[j].price,
+                            "duration" : {
+                                "text": results[j].duration.text,
+                                "value": results[j].duration.value
+                            },
+                            "distance": results[j].distance.text
+                            //"location": results[j].geometry.location
+                            
+                        } );
 
                         //Only plot/display if within user's timeframe
                         if( closeEnough(results[j]) ){
@@ -272,9 +328,28 @@ var placeMarkers = function() {
                                 placeDestination(j));
                             
                             //Put results on the side bar
-                            outputDiv.innerHTML += originList[i] + ' to ' + destinationList[j] +
-                                ': ' + results[j].distance.text + ' in ' +
-                                results[j].duration.text + '<br>';
+                            // outputDiv.innerHTML += originList[i] + ' to ' + destinationList[j] +
+                            //     ': ' + results[j].distance.text + ' in ' +
+                            //     results[j].duration.text + "RATING: " + 
+                            //     data.businesses[j].rating + '<br>';
+
+                            // var option = $("<div>").html(
+                            //     "<b>" + labels[j] + "</b>" + 
+                            //     " To " +  data.businesses[j].name + ": " + results[j].distance.text
+                            //     + " in " + results[j].duration.text + "<br> Rating: " + data.businesses[j].rating
+                            // )
+
+                            var option = $("<div>").html(
+                                "<b>" + labels[j] + "</b>" +
+                                " To " + finalResults[j].name + ": " + finalResults[j].distance
+                                + " in " + finalResults[j].duration.text + "<br> Rating: " + finalResults[j].rating
+                                + "<br> Price: " + finalResults[j].price
+                            );
+
+                            option.attr("rating", data.businesses[j].rating);
+
+
+                            $("#output").append(option);
                         }
 
                         else{
@@ -297,7 +372,9 @@ var placeMarkers = function() {
 
 //What to do when directions button is clicked
 $(document).on("click", ".directions", function(){
-
+    deleteMarkers(markersArray);
+    $("#output").detach();
+    $("#headline").text("Directions");
 
     //Get name and address from element
     //Search directions without the word "directions in the query"
