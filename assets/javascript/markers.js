@@ -68,13 +68,28 @@ function initMap() {
                     lat: position.coords.latitude,
                     lng: position.coords.longitude
                 };
+                allowedLocation = true;
                 o = pos;
                 // infoWindow.setPosition(pos);
                 // infoWindow.setContent('You are around here!');
                 // infoWindow.open(map);
                 map.setCenter(pos);
             }, function () {
-                handleLocationError(true, infoWindow, map.getCenter());
+                console.log("Block click goes here");
+                $("#transport-float-div").css({
+                    "display": "inline", 
+                    "width":"100%",
+                    "height": "50px",
+                    "padding": "0px",
+                    "margin": "0px"                    
+                    //"margin-bottom" : "4%",
+                });
+                $("#floating-panel").css("height", "88%");
+                //o = origin;
+                allowedLocation = false;
+                console.log("Origin is: " + origin);
+                console.log("O is: " + o);
+                //handleLocationError(true, infoWindow, map.getCenter());
             });
         } else {
             // Browser doesn't support Geolocation
@@ -92,16 +107,19 @@ function initMap() {
      originIcon = 'https://chart.googleapis.com/chart?' +
          'chst=d_map_pin_letter&chld=O|FFFF00|000000';
 
-    
-     
-     directionsDisplay.setMap(map);
 
+     directionsDisplay.setMap(map);
 
     
 }
 
 
 var placeMarkers = function() {
+    console.log("Inside placeMarkers o: " + o);
+
+    if(allowedLocation){
+
+   
     $.ajax({
         
     //Making the Yelp query
@@ -124,8 +142,38 @@ var placeMarkers = function() {
     method: 'GET'
 
     //Once the Yelp query has returned some businesses, do this
-    }).then( function (data){
-        console.log(data);
+    }).then(thenFunction);
+}
+
+else{
+    $.ajax({
+        
+        //Making the Yelp query
+        // url: proxy + "https://api.yelp.com/v3/businesses/search?term=delis&latitude=37.786882&longitude=-122.399972",
+        url: proxy + "https://api.yelp.com/v3/businesses/search",
+        data: {
+            location: o,
+            term: termd,
+            radius: radiusd,
+            sort_by: sort_byd,
+            // open_now: open_nowd,
+            limit: limitd
+    
+        },
+        headers: {
+            "Authorization":
+            "Bearer siEX8OCYbi_jlP5s9XfsZIzFp7Y6-wLg1E9CDaP3dMl9pUBv5oSNNXDWJfXrVinZHlUQD8ParDCMjkUjt4irK5k-qnVL0IOo0sA0BHpVJnXxcGMOMhGc6QiRAEEQW3Yx"
+        },
+        method: 'GET'
+    
+        //Once the Yelp query has returned some businesses, do this
+        }).then(thenFunction);
+
+}
+}
+
+var thenFunction = function(data){
+    console.log(data);
         var resultcount = 0;
         var results = data.businesses;
         //console.log(businesses);
@@ -364,9 +412,7 @@ var placeMarkers = function() {
         });
 
         
-    });
-}
-
+    }
 
 
 

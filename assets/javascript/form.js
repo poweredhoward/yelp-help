@@ -6,6 +6,7 @@ var duration;
 var finalResults = [];
 var markersArray;
 var labels = "ABCDEFGHIJKLMNOP";
+var allowedLocation;
 
 console.log("Outside");
 
@@ -15,6 +16,9 @@ $("#btn-float").click( function(){
     cuisine = $("#cuisine-float").val().toLowerCase();
     transport = $("#transport-float :selected").text().toUpperCase();
     duration = $("#duration-float").val();
+    origin = $("#origin-float").val();
+    o = origin;
+    
 
     termd = cuisine;
     travelModed = transport;
