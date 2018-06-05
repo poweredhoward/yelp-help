@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+        crossorigin="anonymous">
+
+    <title>G O O G U R T</title>
+
+</head>
+
+<body>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+
+    
+    <select id="selectBox" onchange="sortThis();">
+        <option value="0" selected> Sort by:  </option>
+        <option value="1">          Distance  </option>
+        <option value="2">          Rating    </option>
+    </select>
+
+    <!-- HTML block
+        <select id="selectBox" onchange="sortThis();">
+            <option value="0" selected> Sort by:    </option>
+            <option value="1">          Time        </option>
+            <option value="2">          Rating      </option>
+        </select>
+    -->
+    
+    <script type="text/javascript">
+
+        var group = [
+            {
+                firstName: "Sean",
+                lastName: "Lee",
+                commuteDist: 35,
+                commuteRate: 1
+            },
+            {
+                firstName: "Matthew",
+                lastName: "Howard",
+                commuteDist: 7,
+                commuteRate: 5
+            },
+            {
+                firstName: "Paul",
+                lastName: "Choza",
+                commuteDist: 15,
+                commuteRate: 3
+            }
+        ];
+
+        console.log(group);
+
+        // Sorting for commuteDistance and commuteRating! --Working! Check console.
+        function sortThis() {
+            var selectBox = document.getElementById("selectBox");
+            var selectedValue = selectBox.options[selectBox.selectedIndex].value;
+            
+            if (selectedValue === "1") {
+                group.sort(function(a, b) {
+                    return b.commuteDist - a.commuteDist
+                });
+                console.log(group);
+            } else if (selectedValue === "2") {
+                group.sort(function(a, b) {
+                    return b.commuteRate - a.commuteRate
+                });
+                console.log(group);
+            } else {
+                return false;
+            };
+        }
+
+        /*
+        // Sort selector for Results output
+        function sortThis() {
+            var selectBox = $("#selectBox");
+            var selectedValue = selectBox.options[selectBox.selectedIndex].value;
+
+            if (selectedValue === "1") {
+                results.sort(function (a, b) {
+                    var sorted = return a.# - b.#
+                });
+                $("#output").html(sorted);
+            } else if (selectedValue === "2") {
+                results.sort(function (a, b) {
+                    var sorted = return a.# - b.#
+                });
+                $("#output").html(sorted);
+            } else {
+                return false;
+            };
+        }
+        */
+
+    </script>
+    
+</body>
+
+</html>
