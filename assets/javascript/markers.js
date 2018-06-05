@@ -70,9 +70,9 @@ function initMap() {
                     lng: position.coords.longitude
                 };
                 o = pos;
-                infoWindow.setPosition(pos);
-                infoWindow.setContent('You are around here!');
-                infoWindow.open(map);
+                // infoWindow.setPosition(pos);
+                // infoWindow.setContent('You are around here!');
+                // infoWindow.open(map);
                 map.setCenter(pos);
             }, function () {
                 handleLocationError(true, infoWindow, map.getCenter());
@@ -215,8 +215,8 @@ var placeMarkers = function() {
                             title:possibleDestinations[index],
                             map: map,
                             position: results[0].geometry.location,
-                            //label: labels[index]
-                            icon: icon
+                            label: labels[index],
+                            //icon: icon
                         });
 
                         //What to do when marker is clicked
@@ -314,8 +314,8 @@ var placeMarkers = function() {
                             //     data.businesses[j].rating + '<br>';
 
                             var option = $("<div>").html(
-                                // "<b>" + labels[j] + "</b> 
-                                "To " +  data.businesses[j].name + ": " + results[j].distance.text
+                                "<b>" + labels[j] + "</b>" + 
+                                " To " +  data.businesses[j].name + ": " + results[j].distance.text
                                 + " in " + results[j].duration.text + "<br> Rating: " + data.businesses[j].rating
                             )
 
@@ -342,7 +342,9 @@ var placeMarkers = function() {
 
 //What to do when directions button is clicked
 $(document).on("click", ".directions", function(){
-
+    deleteMarkers(markersArray);
+    $("#output").detach();
+    $("#headline").text("Directions");
 
     //Get name and address from element
     //Search directions without the word "directions in the query"
