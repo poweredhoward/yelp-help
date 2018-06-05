@@ -14,6 +14,7 @@
     
    
     <link rel="stylesheet" type="text/css" media="screen" href="assets/css/reset.css" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" media="screen" href="assets/css/style.css" />
     
   </head>
@@ -22,11 +23,11 @@
     <!-- THIS IS HTML CODE FOR HEADER BAR AT TOP OF BROWSER WINDOW -->
     <div id="header">
       <p id="header-ptag">
-          <span class="box3" id="head-left">Type of food: </span>
+          <span class="box3" id="head-left"><i class="fas fa-utensils"></i>  </span>
       <input type="text" class="input-header" id="cuisine-header" onfocus="this.value=''" value="You want tacos?">
-          <span class="box3">Your location: </span>
+          <span class="box3"><i class="fas fa-map-pin"></i>  </span>
       <input type="text" class="input-header" id="origin-header" onfocus="this.value=''" value="Where are you coming from?">
-          <span class="box3">Method of transportation: </span>
+          <span class="box3"><i class="fas fa-car"></i> <i class="fas fa-walking"></i> <i class="fas fa-bus"></i>  </span>
       <!-- <input type="text" class="input"  id="transport" onfocus="this.value=''" value="Walk or drive?"> -->
       <select name="transport-header" id="transport-header">
           <option selected>Pick a transport method</option>
@@ -34,9 +35,9 @@
           <option value="1">Walking</option>
           <option value="2">Transit</option>
       </select>
-          <span class="box3">Distance: </span>
+          <span class="box3"><i class="far fa-clock"></i>  </span>
       <input type="text" class="input-header" id="duration-header" onfocus="this.value=''" value="Close or really close??">
-      <button id="btn-header">Submit</button>
+      <button id="btn-header"><i class="fas fa-search"></i> Search</button>
       </p>
     
     </div>
@@ -50,7 +51,7 @@
                     <option value="3">         Price        </option>
             </select>
         </div>
-        <h2 id="headline">Results</h2>
+        <h2 id="headline"><i class="fas fa-list-ul"></i> Results</h2>
         <div id="output"></div>
     </div>
 
@@ -62,17 +63,17 @@
         <div id="container">
   
         <div class="box2">
-            <p>Type of food</p>
+            <p><i class="fas fa-utensils"></i> Type of food</p>
         </div>
         <input type="text" class="input" id="cuisine-float" onfocus="this.value=''" value="You want tacos?">
 
         <div class="box2">
-            <p>Your location</p>
+            <p><i class="fas fa-map-pin"></i> Your location</p>
         </div>
         <input type="text" class="input" id="origin-float" onfocus="this.value=''" value="Where are you coming from?">
 
         <div class="box2">
-            <p>Method of transportation</p>
+            <p><i class="fas fa-car"></i> <i class="fas fa-walking"></i> <i class="fas fa-bus"></i> Method of transportation</p>
         </div>
         <!-- <input type="text" class="input"  id="transport" onfocus="this.value=''" value="Walk or drive?"> -->
         <select name="transport-float" id="transport-float">
@@ -85,7 +86,7 @@
 
 
         <div class="box2">
-            <p>Distance</p>
+            <p><i class="far fa-clock"></i> Minutes of travel</p>
         </div>
         <input type="text" class="input"  id="duration-float" onfocus="this.value=''" value="Close or really close?">
         <br>

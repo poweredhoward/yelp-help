@@ -45,6 +45,8 @@ html, body {
     display: none;
 }
 #header-ptag { 
+    position: relative;
+    width: 100%;
     display: flex;
     padding-top: 0;
 }
@@ -62,9 +64,9 @@ html, body {
 .box3 {
     margin-left: 10px;
     margin-right: 5px;
-    padding-top: 8px;
+    padding-top: 2px;
     font-family: 'Roboto','sans-serif';
-    font-size: 16px;
+    font-size: 28px;
 
 }
 #transport-header { 
@@ -79,8 +81,13 @@ html, body {
 }
 
 #btn-header { 
+    position: absolute; 
+    right: 50px;
+    width: 100px;
+    font-size: 18px;
     margin-left: 10px;
     border-radius: 3px;
+
 }
 /* Panel to the right of the map that displays the resturned results and directions */
 #right-panel {
@@ -103,6 +110,9 @@ html, body {
 
 #right-panel i {
     font-size: 12px;
+}
+#selectBox {
+    margin-right: 50px;
 }
 
 /* Large panel that hovers above page on load with 4 search inputs */
