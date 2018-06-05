@@ -16,8 +16,11 @@ $("#btn-float").click( function(){
     cuisine = $("#cuisine-float").val().toLowerCase();
     transport = $("#transport-float :selected").text().toUpperCase();
     duration = $("#duration-float").val();
-    origin = $("#origin-float").val();
-    o = origin;
+
+    if(!allowedLocation) {
+        origin = $("#origin-float").val();
+        o = origin;
+    }   
     
 
     termd = cuisine;
