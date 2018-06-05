@@ -18,17 +18,16 @@ var latituded = 34.064515;
 var longituded = -118.407064;
 var possibleDestinations = [];
 
+
 //Var are declared out since need to be global, but have to be assigned inside
 var geocoder;
 var directionsDisplay;
 var directionsService;
 var o;
 var bounds;
-var markersArray;
 var destinationIcon;
 var originIcon;
 var map;
-var labels = "ABCDEFGHIJKLMNOP";
 
 function initMap() {
     
@@ -173,6 +172,9 @@ var placeMarkers = function() {
             alert('Error was: ' + status);
         } else {
 
+            console.log("Possible Destinations");
+            console.log(possibleDestinations);
+
             console.log(response);
 
             //If successfully got distance matrix, put them on the map and
@@ -196,6 +198,8 @@ var placeMarkers = function() {
                 console.log("Status: " + status);
                 console.log("Index: " + index);
                 return function(results, status) {
+                    console.log("Weird result: ");
+                    console.log(results);
                     if (status === 'OK') {
 
                         //What to display when marker is clicked
@@ -212,7 +216,7 @@ var placeMarkers = function() {
                         
                         //Make marker and place it
                         var marker = new google.maps.Marker({
-                            title:possibleDestinations[index],
+                            title:possibleDestinations[index].split(",")[0],
                             map: map,
                             position: results[0].geometry.location,
                             label: labels[index],
@@ -243,6 +247,8 @@ var placeMarkers = function() {
                 var icon = originIcon;
                 console.log("Status: " + status);
                 return function( results, status){
+                    console.log("Weird result: ");
+                    console.log(results);
                     if (status === 'OK'){
 
                         var infowindow = new google.maps.InfoWindow({
@@ -299,6 +305,20 @@ var placeMarkers = function() {
                     //Read each destination for one origin
                     for (var j = 0; j < results.length; j++) {
 
+                        finalResults.push( {
+                            "name": possibleDestinations[j].split(",")[0],
+                            "address": possibleDestinations[j].split(",")[1],
+                            "rating": data.businesses[j].rating,
+                            "price": data.businesses[j].price,
+                            "duration" : {
+                                "text": results[j].duration.text,
+                                "value": results[j].duration.value
+                            },
+                            "distance": results[j].distance.text
+                            //"location": results[j].geometry.location
+                            
+                        } );
+
                         //Only plot/display if within user's timeframe
                         if( closeEnough(results[j]) ){
                             console.log(destinationList[j]);
@@ -313,11 +333,21 @@ var placeMarkers = function() {
                             //     results[j].duration.text + "RATING: " + 
                             //     data.businesses[j].rating + '<br>';
 
+                            // var option = $("<div>").html(
+                            //     "<b>" + labels[j] + "</b>" + 
+                            //     " To " +  data.businesses[j].name + ": " + results[j].distance.text
+                            //     + " in " + results[j].duration.text + "<br> Rating: " + data.businesses[j].rating
+                            // )
+
                             var option = $("<div>").html(
-                                "<b>" + labels[j] + "</b>" + 
-                                " To " +  data.businesses[j].name + ": " + results[j].distance.text
-                                + " in " + results[j].duration.text + "<br> Rating: " + data.businesses[j].rating
-                            )
+                                "<b>" + labels[j] + "</b>" +
+                                " To " + finalResults[j].name + ": " + finalResults[j].distance
+                                + " in " + finalResults[j].duration.text + "<br> Rating: " + finalResults[j].rating
+                                + "<br> Price: " + finalResults[j].price
+                            );
+
+                            option.attr("rating", data.businesses[j].rating);
+
 
                             $("#output").append(option);
                         }
