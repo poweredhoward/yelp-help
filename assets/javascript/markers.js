@@ -82,7 +82,6 @@ function initMap() {
                     "height": "50px",
                     "padding": "0px",
                     "margin": "0px"                    
-                    //"margin-bottom" : "4%",
                 });
                 $("#floating-panel").css("height", "88%");
                 //o = origin;
