@@ -66,6 +66,10 @@ var timeToDistance = function (time, method){
         //1207 is meters per minute @ 45 mph
         return time * 1207;
     }
+
+    else if(method === "TRANSIT"){
+        return time * 900;
+    }
     else{
         return time * 96;
     }
@@ -152,4 +156,15 @@ var closeEnough = function(destination){
     else{
         return true;
     }
+}
+
+function isFoodTruck(result){
+    var r = false;
+    result.categories.forEach( function(category){
+        if(category.alias==="foodtrucks"){
+            r = true;
+        }
+    })
+
+    return r;
 }

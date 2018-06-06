@@ -11,7 +11,7 @@ var locationd;
 var termd;
 var radiusd;
 var travelModed;
-var limitd = 8;
+var limitd = 10;
 var sort_byd = "distance"; //Also can do by rating or best_match
 var open_nowd = true;
 var latituded = 34.064515;
@@ -195,9 +195,11 @@ var thenFunction = function(data){
 
             //Results from Yelp are put in this array and given to Google
             //Business name and street address are all that Google needs to find the right place
-            //Only plot top 6
-            if( result.location.address1 !== null &&result.location.address1.length > 4 && resultcount <=6){
-                possibleDestinations.push(result.name +", "+ result.location.address1);
+            //Only plot top 9
+            //NO FOOD TRUCKS
+            if( result.location.address1 !== null &&result.location.address1.length > 2 && resultcount <=9
+            && !isFoodTruck(result)){
+                possibleDestinations.push(result.name +", "+ result.location.address1 + ", " + result.location.zip_code);
                 resultcount++;
             }
             
@@ -260,12 +262,16 @@ var thenFunction = function(data){
                     
                         
                         map.fitBounds(bounds.extend(results[0].geometry.location));
+                        var v = results[0].geometry.viewport;
+                        var latlng = new google.maps.LatLng(v.f.f, v.b.f);
                         
                         //Make marker and place it
                         var marker = new google.maps.Marker({
                             title:possibleDestinations[index].split(",")[0],
                             map: map,
-                            position: results[0].geometry.location,
+                            //TODO: Check out formatted address on results[0]???? 
+                            // position: results[0].geometry.location,
+                            position: latlng,
                             label: labels[index],
                             //icon: icon
                         });
@@ -339,8 +345,8 @@ var thenFunction = function(data){
                 for (var i = 0; i < originList.length; i++) {
                     //For one origin, list of results, one for each destination
                     var results = response.rows[i].elements;
-                    results.sort(compare);
-                    console.log("results");
+                    
+                    console.log("results before sort");
                     console.log(results);
                    
 
@@ -354,7 +360,8 @@ var thenFunction = function(data){
 
                         finalResults.push( {
                             "name": possibleDestinations[j].split(",")[0],
-                            "address": possibleDestinations[j].split(",")[1],
+                            //"address": possibleDestinations[j].split(",")[1],
+                            "address": destinationList[j],
                             "rating": data.businesses[j].rating,
                             "price": data.businesses[j].price,
                             "duration" : {
@@ -405,6 +412,12 @@ var thenFunction = function(data){
                         }
                     }
                 }
+
+                finalResults.sort(compare);
+                console.log("Final Results after sort");
+                console.log(finalResults);
+
+
             }
 
             
