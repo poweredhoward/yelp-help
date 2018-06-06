@@ -257,6 +257,7 @@ var thenFunction = function(data){
                         var infowindow = new google.maps.InfoWindow({
                             content: "<b>" + possibleDestinations[index].split(",")[0] + "</b><br>" +
                                 possibleDestinations[index].split(",")[1].trim() + 
+                                "<br><b>Phone</b> " + finalResults[index].phone + 
                                 // "<br><button id='testbutton'>Directions</button>"
                                 "<br><button class='directions'>Directions</button>"
                         });
@@ -271,8 +272,8 @@ var thenFunction = function(data){
                             title:possibleDestinations[index].split(",")[0],
                             map: map,
                             //TODO: Check out formatted address on results[0]???? 
-                            // position: results[0].geometry.location,
-                            position: latlng,
+                            position: results[0].geometry.location,
+                            // position: latlng,
                             label: labels[index],
                             //icon: icon
                         });
@@ -359,23 +360,26 @@ var thenFunction = function(data){
                     //Read each destination for one origin
                     for (var j = 0; j < results.length; j++) {
 
-                        finalResults.push( {
-                            "name": possibleDestinations[j].split(",")[0],
-                            //"address": possibleDestinations[j].split(",")[1],
-                            "address": destinationList[j],
-                            "rating": data.businesses[j].rating,
-                            "price": data.businesses[j].price,
-                            "duration" : {
-                                "text": results[j].duration.text,
-                                "value": results[j].duration.value
-                            },
-                            "distance": results[j].distance.text
-                            //"location": results[j].geometry.location
-                            
-                        } );
+                        
 
                         //Only plot/display if within user's timeframe
                         if( closeEnough(results[j]) ){
+
+                            finalResults.push( {
+                                "name": possibleDestinations[j].split(",")[0],
+                                //"address": possibleDestinations[j].split(",")[1],
+                                "address": destinationList[j],
+                                "rating": data.businesses[j].rating,
+                                "price": data.businesses[j].price,
+                                "duration" : {
+                                    "text": results[j].duration.text,
+                                    "value": results[j].duration.value
+                                },
+                                "phone": data.businesses[j].display_phone,
+                                "distance": results[j].distance.text
+                                //"location": results[j].geometry.location
+                                
+                            } );
                             console.log(destinationList[j]);
 
                             //Place destination on the map

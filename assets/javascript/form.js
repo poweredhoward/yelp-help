@@ -72,7 +72,7 @@ $("#btn-header").click( function(){
 var timeToDistance = function (time, method){
     if( method === "DRIVING"){
         //1207 is meters per minute @ 45 mph
-        return time * 1207;
+        return time * 1107;
     }
 
     else if(method === "TRANSIT"){
