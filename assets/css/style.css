@@ -206,3 +206,7 @@ html, body {
     border-radius: 4px;
 
 }
+
+.location-stuff{
+    display: none;
+}

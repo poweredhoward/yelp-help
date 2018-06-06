@@ -26,7 +26,7 @@
           <span class="box3" id="head-left"><i class="fas fa-utensils"></i>  </span>
       <input type="text" class="input-header" id="cuisine-header" onfocus="this.value=''" value="You want tacos?">
           <span class="box3"><i class="fas fa-map-pin"></i>  </span>
-      <input type="text" class="input-header" id="origin-header" onfocus="this.value=''" value="Where are you coming from?">
+      <input type="text" class="input-header location-stuff" id="origin-header" onfocus="this.value=''" value="Where are you coming from?">
           <span class="box3"><i class="fas fa-car"></i> <i class="fas fa-walking"></i> <i class="fas fa-bus"></i>  </span>
       <!-- <input type="text" class="input"  id="transport" onfocus="this.value=''" value="Walk or drive?"> -->
       <select name="transport-header" id="transport-header">
@@ -68,10 +68,12 @@
         </div>
         <input type="text" class="input" id="cuisine-float" onfocus="this.value=''" value="i.e. Italian, Sushi, Tacos...">
 
-        <div class="box2">
-            <p><i class="fas fa-map-pin"></i> Your location</p>
-        </div>
-        <input type="text" class="input" id="origin-float" onfocus="this.value=''" value="Enter starting address...">
+        <!-- <div id="location-float-div" style="display:none;"></div> -->
+            <div class="box2 location-stuff">
+                <p><i class="fas fa-map-pin"></i> Your location</p>
+            </div>
+            <input type="text" class="input location-stuff" id="origin-float" onfocus="this.value=''" value="Enter starting address...">
+        <!-- </div> -->
 
         <div class="box2">
             <p><i class="fas fa-car"></i> <i class="fas fa-walking"></i> <i class="fas fa-bus"></i> Method of transportation</p>

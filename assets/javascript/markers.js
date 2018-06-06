@@ -77,14 +77,10 @@ function initMap() {
             }, function () {
                 //If they decline to share location
                 console.log("Block click goes here");
-                $("#transport-float-div").css({
-                    "display": "inline", 
-                    "width":"100%",
-                    "height": "50px",
-                    "padding": "0px",
-                    "margin": "0px"                    
+                $(".location-stuff").css({
+                    "display": "inline-block",                  
                 });
-                $("#floating-panel").css("height", "88%");
+                //$("#floating-panel").css("height", "88%");
                 //o = origin;
                 allowedLocation = false;
                 console.log("Origin is: " + origin);
@@ -198,7 +194,7 @@ var thenFunction = function(data){
             //Business name and street address are all that Google needs to find the right place
             //Only plot top 9
             //NO FOOD TRUCKS
-            if( result.location.address1 !== null &&result.location.address1.length > 2 && resultcount <=9
+            if( result.location.address1 !== null &&result.location.address1.length > 2 && resultcount <=8
             && !isFoodTruck(result)){
                 possibleDestinations.push(result.name +", "+ result.location.address1 + ", " + result.location.zip_code);
                 resultcount++;
@@ -257,7 +253,7 @@ var thenFunction = function(data){
                         var infowindow = new google.maps.InfoWindow({
                             content: "<b>" + possibleDestinations[index].split(",")[0] + "</b><br>" +
                                 possibleDestinations[index].split(",")[1].trim() + 
-                                "<br><b>Phone</b> " + finalResults[index].phone + 
+                                // "<br><b>Phone</b> " + finalResults[index].phone + 
                                 // "<br><button id='testbutton'>Directions</button>"
                                 "<br><button class='directions'>Directions</button>"
                         });
@@ -375,7 +371,7 @@ var thenFunction = function(data){
                                     "text": results[j].duration.text,
                                     "value": results[j].duration.value
                                 },
-                                "phone": data.businesses[j].display_phone,
+                                // "phone": data.businesses[j].display_phone,
                                 "distance": results[j].distance.text
                                 //"location": results[j].geometry.location
                                 
