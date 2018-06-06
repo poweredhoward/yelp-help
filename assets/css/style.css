@@ -3,15 +3,17 @@
 * element that contains the map. */
 /* Map for the landing page. */
 #map {
+    position: absolute;
     height: 100%;
-    width: 70%;
+    width: 100%;
+    z-index: 3;
     /* float: left; */
     /*  */
 }  
 
-/* .blurred{
-    filter: blur(15px); 
-} */
+.blurred{
+    filter: blur(10px); 
+}
 
 /* below map is commented out and will toggle between landing page (above) and results page (below)  */
 /* #map {
@@ -42,29 +44,34 @@ html, body {
     border-bottom: 1px solid #949494;
     z-index: 4;
     display: inline-block;
-    display: none;
+
 }
 #header-ptag { 
+    position: relative;
+    width: 100%;
     display: flex;
     padding-top: 0;
 }
 #head-left { 
     margin-left: 15px;
 }
+
+
 .input-header {
     width: 200px;
     height: 20px;
     color: grey;
     font-size: 15px;
     margin-right: 2%;
+    margin-left: 10px;
     border-radius: 5px;
 }
 .box3 {
     margin-left: 10px;
     margin-right: 5px;
-    padding-top: 8px;
+    padding-top: 0px;
     font-family: 'Roboto','sans-serif';
-    font-size: 16px;
+    font-size: 28px;
 
 }
 #transport-header { 
@@ -72,6 +79,7 @@ html, body {
     height: 30px;
     font-size: 14px;
     margin-right: 2%;
+    margin-left: 10px;
 }
 
 #distance {
@@ -79,18 +87,47 @@ html, body {
 }
 
 #btn-header { 
+    position: absolute; 
+    right: 50px;
+    width: 100px;
+    font-size: 18px;
     margin-left: 10px;
     border-radius: 3px;
+    display: flex;
+
 }
+
+.fa-utensils { 
+    color: white;
+    
+}
+.fa-map-pin { 
+    color: white;
+}
+.fa-car { 
+    color: white;
+}
+.fa-walking { 
+    color: white;
+}
+.fa-bus { 
+    color: white;
+}
+.fa-clock { 
+    color: white;
+}
+
 /* Panel to the right of the map that displays the resturned results and directions */
 #right-panel {
-    padding-top: 5%;
+    padding-top: 80px;
     font-family: 'Roboto','sans-serif';
     line-height: 30px;
     padding-left: 10px;
     float: right;
     width: 28%;
     padding-left: 2%;
+    overflow: auto;
+    max-height: 88%;
 }
 
 #right-panel select, #right-panel input {
@@ -104,14 +141,17 @@ html, body {
 #right-panel i {
     font-size: 12px;
 }
+#sort-box {
+    width: 90px;
+}
 
 /* Large panel that hovers above page on load with 4 search inputs */
 #floating-panel {
     position: absolute;
-    top: 40px;
-    left: 25%;
-    width: 50%;
-    height: 82%;
+    top: 10%;
+    left: 30%;
+    width: 40%;
+    height: 80%;
     z-index: 5;
     background-color: #d32323;
     padding: 5px;
@@ -136,8 +176,8 @@ html, body {
 
 
 #transport-float { 
-    height: 60px;
-    width: 90%;
+    height: 8%;
+    width: 65%;
     font-size: 28px;
     margin-bottom: 4%;
     color: grey;
@@ -149,9 +189,9 @@ html, body {
 }
 
 .input{
-    width: 90%;
-    height: 60px;
-    font-size: 30px;
+    width: 65%;
+    height: 8%;
+    font-size: 25px;
     color: grey;
     margin-bottom: 4%;
     border-radius: 4px;

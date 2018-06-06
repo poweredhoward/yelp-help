@@ -41,7 +41,13 @@ $("#btn-float").click( function(){
     console.log("hello" + t);
     $("#transport-header").val(t);
 
-    $("#header").css("display" , "inline-block" );
+    $("#floating-panel").slideDown();    
+    $("#header").slideDown();
+    $("#right-panel").css("display", "inline-block" );
+    $("#map").css("width", "70%" );   
+    $(".blurred").css("filter", "blur(0px)" );
+    $("#map").css("transition-duration", "1s" );                    
+    // $("#header").css("display" , "inline-block" );
     $("#cuisine-header").val(cuisine);
     $("#origin-header").val(origin);
     floatingpanel = $("#floating-panel").detach();
