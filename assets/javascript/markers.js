@@ -41,7 +41,7 @@ function initMap() {
     directionsDisplay = new google.maps.DirectionsRenderer;
     directionsDisplay.setOptions({
         polylineOptions: {
-            strokeColor: "red"
+            strokeColor: "blue"
             //editable: true
         },
        // draggable: true
@@ -75,6 +75,7 @@ function initMap() {
                 // infoWindow.open(map);
                 map.setCenter(pos);
             }, function () {
+                //If they decline to share location
                 console.log("Block click goes here");
                 $("#transport-float-div").css({
                     "display": "inline", 

@@ -10,6 +10,14 @@ var allowedLocation;
 
 console.log("Outside");
 
+function newQuery(){
+    deleteMarkers(markersArray);
+    finalResults = [];
+    $("#output").empty();
+    possibleDestinations = [];
+    placeMarkers();
+}
+
 $("#btn-float").click( function(){
     
     console.log("hi");
@@ -21,7 +29,6 @@ $("#btn-float").click( function(){
         origin = $("#origin-float").val();
         o = origin;
     }   
-    
 
     termd = cuisine;
     travelModed = transport;
@@ -42,9 +49,9 @@ $("#btn-float").click( function(){
     placeMarkers();
 });
 
-//Submit button on header >>
+//Submit button on header 
 $("#btn-header").click( function(){
-    deleteMarkers(markersArray);
+    //deleteMarkers(markersArray);
     cuisine = $("#cuisine-header").val().toLowerCase();
     transport = $("#transport-header :selected").text().toUpperCase();
     duration = $("#duration-header").val();
@@ -55,7 +62,8 @@ $("#btn-header").click( function(){
 
     console.log(cuisine, transport, duration);
     //floatingpanel = $("#floating-panel").detach();
-    placeMarkers();
+    //placeMarkers();'
+    newQuery();
 });
 
 
