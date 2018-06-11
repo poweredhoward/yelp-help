@@ -53,7 +53,7 @@ html, body {
     padding-top: 0;
 }
 #head-left { 
-    margin-left: 15px;
+    margin-left: 10px;
 }
 
 
@@ -95,6 +95,13 @@ html, body {
     border-radius: 3px;
     display: flex;
 
+}
+
+#logo-header { 
+    width: 108px;
+    height: 50px;
+    position: relative;
+    bottom: 10px;
 }
 
 .fa-utensils { 
@@ -173,7 +180,12 @@ html, body {
     transform-origin: center center;
 }
 
-
+#logo-float {
+    width: 216px;
+    height: 100px;
+    margin: 0;
+    padding: 0;
+}
 
 #transport-float { 
     height: 8%;
@@ -186,6 +198,10 @@ html, body {
 .box2 {
     font-size: 30px;
     padding: 4%;
+}
+.box4 {
+    font-size: 30px;
+    padding-bottom: 4%;
 }
 
 .input{
