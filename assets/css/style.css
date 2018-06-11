@@ -201,8 +201,8 @@ html, body {
 }
 #btn-float {
     height: 40px;
-    width: 200px;
-    font-size: 28px;
+    width: 60%;
+    font-size: 200%;
     border-radius: 4px;
 
 }
