@@ -1,0 +1,95 @@
+
+/* Top bar with search inputs */
+#header {
+    position: fixed;
+    width: 100%;
+    height: 20px;
+    padding: 20px;
+    padding-bottom: 30px;
+    background-color: #d32323;
+    border-bottom: 1px solid #949494;
+    z-index: 4;
+    display: inline-block;
+
+}
+#header-ptag { 
+    position: relative;
+    width: 100%;
+    display: flex;
+    padding-top: 0;
+}
+#head-left { 
+    margin-left: 10px;
+}
+
+
+.input-header {
+    width: 200px;
+    height: 20px;
+    color: grey;
+    font-size: 15px;
+    margin-right: 2%;
+    margin-left: 10px;
+    border-radius: 5px;
+}
+.box3 {
+    margin-left: 10px;
+    margin-right: 5px;
+    padding-top: 0px;
+    font-family: 'Roboto','sans-serif';
+    font-size: 28px;
+
+}
+#transport-header { 
+    width: 300px;
+    height: 30px;
+    font-size: 14px;
+    margin-right: 2%;
+    margin-left: 10px;
+}
+
+#btn-header { 
+    position: absolute; 
+    right: 50px;
+    width: 100px;
+    font-size: 18px;
+    margin-left: 10px;
+    border-radius: 3px;
+    display: flex;
+
+}
+
+#logo-header { 
+    width: 108px;
+    height: 50px;
+    position: relative;
+    bottom: 10px;
+}
+
+/* Panel to the right of the map that displays the resturned results and directions */
+#right-panel {
+    padding-top: 80px;
+    font-family: 'Roboto','sans-serif';
+    line-height: 30px;
+    padding-left: 10px;
+    float: right;
+    width: 28%;
+    padding-left: 2%;
+    overflow: auto;
+    max-height: 88%;
+}
+
+#right-panel select, #right-panel input {
+    font-size: 15px;
+}
+
+#right-panel select {
+    width: 100%;
+}
+
+#right-panel i {
+    font-size: 12px;
+}
+#sort-box {
+    width: 90px;
+}

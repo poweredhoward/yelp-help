@@ -78,7 +78,11 @@ function initMap() {
                 //If they decline to share location
                 console.log("Block click goes here");
                 $(".location-stuff").css({
-                    "display": "inline-block",                  
+                    "display": "inline-block",                 
+                });
+                $("#floating-panel").css({
+                    "height" : "86%",
+                    "top": "7%" 
                 });
                 //$("#floating-panel").css("height", "88%");
                 //o = origin;

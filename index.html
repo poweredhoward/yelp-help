@@ -8,14 +8,11 @@
    
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    
-    
-    
-    
    
     <link rel="stylesheet" type="text/css" media="screen" href="assets/css/reset.css" />
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" media="screen" href="assets/css/style.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="assets/css/menustyle.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="assets/css/searchedstyle.css"/>
     
   </head>
   <body>
@@ -60,29 +57,31 @@
     <div id="map" class="blurred"></div>
 
     <!-- THIS IS FLOATING FORM PANEL THAT APPEARS ON PAGE LOAD  -->
-    <div id="floating-panel" >
+    <div id="floating-panel" class="noLocation">
 
         <div id="container">
         
+        <div id="logo-float-div">
             <img id="logo-float" src="assets/images/Yelp-help-logo-large2.jpg" alt="logo">
+        </div>
   
-        <div class="box4">
+        <div class="label-float">
             <p><i class="fas fa-utensils"></i> Type of food</p>
         </div>
-        <input type="text" class="input" id="cuisine-float" onfocus="this.value=''" value="i.e. Italian, Sushi, Tacos...">
+        <input type="text" class="input-float" id="cuisine-float" onfocus="this.value=''" value="i.e. Italian, Sushi, Tacos...">
 
         <!-- <div id="location-float-div" style="display:none;"></div> -->
-            <div class="box2 location-stuff">
+            <div class="label-float location-stuff">
                 <p><i class="fas fa-map-pin"></i> Your location</p>
             </div>
-            <input type="text" class="input location-stuff" id="origin-float" onfocus="this.value=''" value="Enter starting address...">
+            <input type="text" class="input-float location-stuff" id="origin-float" onfocus="this.value=''" value="Enter starting address...">
         <!-- </div> -->
 
-        <div class="box2">
+        <div class="label-float">
             <p><i class="fas fa-car"></i> <i class="fas fa-walking"></i> <i class="fas fa-bus"></i> Method of transportation</p>
         </div>
         <!-- <input type="text" class="input"  id="transport" onfocus="this.value=''" value="Walk or drive?"> -->
-        <select name="transport-float" id="transport-float">
+        <select name="transport-float" class="input-float" id="transport-float">
             <option selected>Method of transportation...</option>
             <option value="0">Driving</option>
             <option value="1">Walking</option>
@@ -91,10 +90,10 @@
         </select>
 
 
-        <div class="box2">
+        <div class="label-float">
             <p><i class="far fa-clock"></i> Max travel time</p>
         </div>
-        <input type="text" class="input"  id="duration-float" onfocus="this.value=''" value="Time in minutes...">
+        <input type="text" class="input-float"  id="duration-float" onfocus="this.value=''" value="Time in minutes...">
         <br>
         <button id="btn-float">Let's Go!</button>
         </div>
