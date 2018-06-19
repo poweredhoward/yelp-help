@@ -129,3 +129,50 @@ html, body {
 .location-stuff{
     display: none;
 }
+
+
+@media screen and (max-width : 1200px) {
+    #floating-panel{
+        width: 90%;
+        height: 84%;
+        top: 8%;
+        left: 5%;
+    }
+}
+
+/* Medium Devices, Desktops */
+@media screen and (max-width : 992px) {
+    #floating-panel{
+        width: 80%;
+        height: 80%;
+        top: 10%;
+        left: 5%;
+        font-size: 90%;
+    }
+
+    .input-float{
+        width: 90%;
+        height: 30px;
+        margin: 10px;
+    }
+
+    .label-float{
+        font-size: 20px;
+    }
+}
+
+/* Small Devices, Tablets */
+@media screen and (max-width : 768px) {
+    
+
+}
+
+/* Extra Small Devices, Phones */ 
+@media screen and (max-width : 480px) {
+
+}
+
+/* Custom, iPhone Retina */ 
+@media screen and (max-width : 320px) {
+
+}
