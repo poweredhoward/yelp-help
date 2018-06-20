@@ -50,10 +50,10 @@ html, body {
 /* Large panel that hovers above page on load with 4 search inputs */
 #floating-panel {
     position: absolute;
-    top: 15%;
+    top: 13%;
     left: 32%;
     width: 36%;
-    height: 70%;
+    height: 74%;
     min-height: 540px;
     z-index: 5;
     background-color: #d32323;
@@ -130,6 +130,23 @@ html, body {
 
 .location-stuff{
     display: none;
+}
+
+@media screen and (min-width : 2000px){
+    #floating-panel{
+        width: 26%;
+        left: 37%;
+    }
+    .input-float{
+        width: 90%;
+        height: 50px;
+    }
+    .label-float{
+        font-size:40px;
+    }
+    #logo-float{
+        height: 110px;
+    }
 }
 
 
