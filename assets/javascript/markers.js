@@ -82,7 +82,8 @@ function initMap() {
                 });
                 $("#floating-panel").css({
                     "height" : "86%",
-                    "top": "7%" 
+                    "top": "7%",
+                    "min-height": "660px" 
                 });
                 //$("#floating-panel").css("height", "88%");
                 //o = origin;
