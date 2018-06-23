@@ -84,7 +84,7 @@ html, body {
     position:relative;
     top: 5%;
     width: 40%;
-    height: 90px;
+    height: 95px;
     margin-bottom: -15px;
 }
 
@@ -202,6 +202,15 @@ html, body {
 
 }
 
+@media screen and (max-height : 690px){
+    #floating-panel{
+        min-height: 570px;
+    }
+    #btn-float{
+        font-size: 150%;
+    }
+}
+
 /* Extra Small Devices, Phones */ 
 @media screen and (max-width : 480px) {
     #floating-panel{
@@ -227,6 +236,8 @@ html, body {
 }
 
 /* Custom, iPhone Retina */ 
-@media screen and (max-width : 320px) {
-
+@media screen and (max-width : 350px) {
+    #floating-panel{
+        min-height: 600px;
+    }
 }
