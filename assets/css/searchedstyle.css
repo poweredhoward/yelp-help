@@ -59,6 +59,11 @@
 
 }
 
+#lines{
+    position: relative;
+    bottom: 10px;
+}
+
 #logo-header { 
     width: 108px;
     height: 50px;
