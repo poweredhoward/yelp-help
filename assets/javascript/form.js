@@ -57,6 +57,7 @@ $("#btn-float").click( function(){
 
 //Submit button on header 
 $("#btn-header").click( function(){
+    $("#header").attr("class", "topnav");
     //deleteMarkers(markersArray);
     cuisine = $("#cuisine-header").val().toLowerCase();
     transport = $("#transport-header :selected").text().toUpperCase();

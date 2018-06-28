@@ -18,30 +18,60 @@
   <body>
 
     <!-- THIS IS HTML CODE FOR HEADER BAR AT TOP OF BROWSER WINDOW -->
-    <div id="header" style="display: none;">
-      <p id="header-ptag">
-        <i id="lines" class="fas fa-bars fa-3x"></i>
-          <span class="box3" id="head-left"><img id="logo-header" src="assets/images/Yelp-help-logo-large2.jpg" alt="logo"></span>
-          <span class="box3" id="input-header"><i class="fas fa-utensils"></i>  </span>
-      <input type="text" class="input-header" id="cuisine-header" onfocus="this.value=''" value="You want tacos?">
-          <span class="box3"><i class="fas fa-map-pin"></i>  </span>
-      <input type="text" class="input-header location-stuff" id="origin-header" onfocus="this.value=''" value="Where are you coming from?">
-          <span class="box3"><i class="fas fa-car"></i> <i class="fas fa-walking"></i> <i class="fas fa-bus"></i>  </span>
-      <!-- <input type="text" class="input"  id="transport" onfocus="this.value=''" value="Walk or drive?"> -->
-      <select name="transport-header" id="transport-header">
-          <option selected>Pick a transport method</option>
-          <option value="0">Driving</option>
-          <option value="1">Walking</option>
-          <option value="2">Transit</option>
-      </select>
-          <span class="box3"><i class="far fa-clock"></i>  </span>
-      <input type="text" class="input-header" id="duration-header" onfocus="this.value=''" value="Close or really close??">
-      <button id="btn-header"><i class="fas fa-search"></i> Search</button>
-      </p>
+    <div id="header" class="topnav" style="display: none;">
+            <span><i class="fas fa-bars fa-3x lines" onclick="myFunction()"></i></span>
+            <!-- <button class="lines" onclick="myFunction()">Menu</button> -->
+
+            <p class="header-section" id="head-left">
+                <img id="logo-header" src="assets/images/Yelp-help-logo-large2.jpg" alt="logo">
+            </p>
+
+            <p class="header-section">
+                <i class="fas fa-utensils"></i>  
+                <input type="text" class="input-header" id="cuisine-header" onfocus="this.value=''" value="i.e. Italian, Sushi, Tacos...">
+            </p>
+
+            
+            <p class="header-section">
+                <span><i class="fas fa-map-pin"></i>  
+                <input type="text" class="input-header location-stuff" id="origin-header" onfocus="this.value=''" value="Enter starting address...">
+            </span>
+            </p>
+            
+            
+            <p class="header-section">
+                
+                <i class="fas fa-car"></i> 
+                <i class="fas fa-walking"></i> 
+                <i class="fas fa-bus"></i>  
+                <select name="transport-header" id="transport-header">
+                    <option selected>Pick a transport method</option>
+                    <option value="0">Driving</option>
+                    <option value="1">Walking</option>
+                    <option value="2">Transit</option>
+                </select>
+            </p>
+    
+        
+            <p class="header-section">
+                <i class="far fa-clock"></i>
+                <input type="text" class="input-header" id="duration-header" onfocus="this.value=''" value="Time in minutes...">
+            </p>
+
+            <p class="header-section">
+                <button id="btn-header">
+                        <i class="fas fa-search"></i> Search
+                </button>
+            </p>
+
+            
+            
     
     </div>
+    <div id="map" class="blurred"></div>
 
     <div id="right-panel" class="blurred" style="display: none;">
+        <!-- <div id="right-panel" class="blurred"> -->
 
         <h2 id="headline"><i class="fas fa-list-ul"></i> Results</h2>
         <div id="sort-box"> 
@@ -55,7 +85,7 @@
         <div id="output"></div>
     </div>
 
-    <div id="map" class="blurred"></div>
+    
 
     <!-- THIS IS FLOATING FORM PANEL THAT APPEARS ON PAGE LOAD  -->
     <div id="floating-panel" class="noLocation">
@@ -103,6 +133,17 @@
         </div>
 
     </div>
+    <script>
+function myFunction() {
+    console.log("Lines was clicked");
+    var x = document.getElementById("header");
+    if (x.className === "topnav") {
+        x.className += " responsive";
+    } else {
+        x.className = "topnav";
+    }
+}
+</script>
      <!-- Script for maps api -->
      <script async defer
      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBOaX_9RIc24eqL--wXFjVUVfT6jCtcBco&callback=initMap">
