@@ -1,52 +1,44 @@
-/* Optional: Makes the sample page fill the window. */
 html, body {
     height: 100%;
     width: 100%;
     margin: 0;
     padding: 0;
-
-    /* overflow: hidden; */
-    /* background-color: #de4e4e; */
 }
 
-/* Always set the map height explicitly to define the size of the div
-* element that contains the map. */
-/* Map for the landing page. */
 #map {
     position: absolute;
     height: 100%;
     width: 100%;
     z-index: 3;
-    /* float: left; */
-    /*  */
 }  
 
 .blurred{
     filter: blur(10px); 
 }
 
-/*Font-awesome*/
 .fa-utensils { 
     color: white;
-    
 }
+
 .fa-map-pin { 
     color: white;
 }
+
 .fa-car { 
     color: white;
 }
+
 .fa-walking { 
     color: white;
 }
 .fa-bus { 
     color: white;
 }
+
 .fa-clock { 
     color: white;
 }
 
-/* Large panel that hovers above page on load with 4 search inputs */
 #floating-panel {
     position: absolute;
     top: 15%;
@@ -64,15 +56,8 @@ html, body {
     padding-left: 10px;
     box-shadow: 10px 15px 60px #000000;
     resize: both;
-    visibility: show; /*<<<<HIDDEN<<<<<<<HIDDEN<<<<<< *Trigger to toggle between show and hidden after user inputs have been recieved */
+    visibility: show;
 }
-/* #container { 
-    position: relative;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    transform-origin: center center;
-} */
 
 #container{
     position: relative;
@@ -86,19 +71,11 @@ html, body {
     margin-bottom: -15px;
 }
 
-/* #transport-float { 
-    height: 8%;
-    width: 65%;
-    font-size: 28px;
-    color: grey;
-} */
-
 .label-float {
     font-size: 30px;
     margin-top: 10px;
     position: relative;
     top: 20px;
-
 }
 
 .input-float{
@@ -112,9 +89,11 @@ html, body {
     position: relative;
     top: 20px;
 }
+
 #output {
     font-size: 11px;
 }
+
 #btn-float {
     height: 40px;
     width: 60%;
@@ -123,7 +102,6 @@ html, body {
     border-radius: 4px;
     position: relative;
     top: 20px;
-
 }
 
 .location-stuff{
