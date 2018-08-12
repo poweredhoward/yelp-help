@@ -90,6 +90,11 @@
 #right-panel i {
     font-size: 12px;
 }
+
+#right-panel {
+    display: none;
+}
+
 #sort-box {
     width: 90px;
 }
