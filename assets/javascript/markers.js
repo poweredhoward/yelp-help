@@ -68,6 +68,7 @@ function initMap() {
                     lat: position.coords.latitude,
                     lng: position.coords.longitude
                 };
+                console.log("inside origin finding");
                 allowedLocation = true;
                 o = pos;
                 // infoWindow.setPosition(pos);

@@ -8,7 +8,7 @@ var markersArray;
 var labels = "ABCDEFGHIJKLMNOP";
 var allowedLocation;
 
-console.log("Outside");
+// console.log("Outside");
 
 function newQuery(){
     deleteMarkers(markersArray);
