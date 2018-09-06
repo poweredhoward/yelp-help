@@ -124,12 +124,13 @@ i {
 
 @media screen and (max-width: 600px) {
     #right-panel{
-        display: inline;
+        display: block;
         float: none;
         padding-top: 10px;
     }
 
     #map{
+        transition: unset;
         width: 100%;
     }
 }
