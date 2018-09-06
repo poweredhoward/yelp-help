@@ -8,6 +8,8 @@ var markersArray;
 var labels = "ABCDEFGHIJKLMNOP";
 var allowedLocation;
 
+// console.log("Outside");
+
 function newQuery(){
     deleteMarkers(markersArray);
     finalResults = [];
@@ -16,12 +18,14 @@ function newQuery(){
     placeMarkers();
 }
 
-$("#btn-float").click( function() {
+$("#btn-float").click( function(){
+    
+    console.log("hi");
     cuisine = $("#cuisine-float").val().toLowerCase();
     transport = $("#transport-float :selected").text().toUpperCase();
     duration = $("#duration-float").val();
 
-    if (!allowedLocation) {
+    if(!allowedLocation) {
         origin = $("#origin-float").val();
         o = origin;
     }   
@@ -30,25 +34,31 @@ $("#btn-float").click( function() {
     travelModed = transport;
     radiusd = String( timeToDistance( parseInt(duration), transport) );
 
-    var t =  $("#transport-float option:selected").val();
+    console.log(cuisine, transport, duration);
 
+
+    var t =  $("#transport-float option:selected").val();
+    console.log("hello" + t);
     $("#transport-header").val(t);
+
     $("#floating-panel").slideDown();    
     $("#header").slideDown();
     $("#right-panel").css("display", "inline-block" );
     $("#map").css("width", "70%" );   
     $(".blurred").css("filter", "blur(0px)" );
     $("#map").css("transition-duration", "1s" );                    
+    // $("#header").css("display" , "inline-block" );
     $("#cuisine-header").val(cuisine);
     $("#origin-header").val(origin);
-    $("#duration-header").val(duration);
-
     floatingpanel = $("#floating-panel").detach();
-    
+    $("#duration-header").val(duration);
     placeMarkers();
 });
 
-$("#btn-header").click( function() {
+//Submit button on header 
+$("#btn-header").click( function(){
+    $("#header").attr("class", "topnav");
+    //deleteMarkers(markersArray);
     cuisine = $("#cuisine-header").val().toLowerCase();
     transport = $("#transport-header :selected").text().toUpperCase();
     duration = $("#duration-header").val();
@@ -57,41 +67,64 @@ $("#btn-header").click( function() {
     travelModed = transport;
     radiusd = String( timeToDistance( parseInt(duration), transport) );
 
+    console.log(cuisine, transport, duration);
+    //floatingpanel = $("#floating-panel").detach();
+    //placeMarkers();'
     newQuery();
 });
 
 
 //Convert time in minutes to meters for Yelp
 //Assume driving is 45mph and walking is 3.5mph
-var timeToDistance = function (time, method) {
-    if (method === "DRIVING") {
+var timeToDistance = function (time, method){
+    if( method === "DRIVING"){
+        //1207 is meters per minute @ 45 mph
         return time * 1107;
-    } else if (method === "TRANSIT") {
+    }
+
+    else if(method === "TRANSIT"){
         return time * 900;
-    } else {
+    }
+    else{
         return time * 96;
-    };
+    }
+    
 };
 
 //Sort selector for Results output
 function sortThis() {
+    console.log("Clicked");
+    var selectBox = $("#selectBox");
+    //var selectedValue = selectBox.options[selectBox.selectedIndex].value;
     var selectedIndex = $("#selectBox option:selected").index();
+    console.log("Selected index: " + selectedIndex);
 
     if (selectedIndex === 1) {
         finalResults.sort(function (a, b) {
             return a.duration.value - b.duration.value;
+            //return sorted;
         });
+        //$("#output").html(sorted);
     } else if (selectedIndex === 2) {
         finalResults.sort(function (a, b) {
             return  b.rating - a.rating;
+           // return sorted;
         });
-    } else if (selectedIndex === 3) {
+       // $("#output").html(sorted);
+    } 
+    else if (selectedIndex === 3) {
         finalResults.sort(function (a, b) {
             return  a.price.length - b.price.length;
+           // return sorted;
         });
-    } else {
+       // $("#output").html(sorted);
+    } 
+    else {
         return false;
-    };
+    }
+
+    console.log("Final Results: ");
+    console.log(finalResults);
 
     changeOrder();
 }
@@ -99,9 +132,10 @@ function sortThis() {
 function changeOrder(){
     $("#output").empty();
 
-    for (var i = 0; i < finalResults.length; i++) {
+    for( var i=0 ; i <finalResults.length ; i++){
+
+        //Updates labels for markers so they match the new results order
         changeMarkerLabel(finalResults[i].name, i);
-        
         var option = $("<div>").html(
             "<b>" + labels[i] + "</b>" +
             " To " + finalResults[i].name + ": " + finalResults[i].distance
@@ -111,29 +145,38 @@ function changeOrder(){
 
         $("#output").append(option);
     }
+
+    //console.log(markersArray);
 }
 
-function changeMarkerLabel(name, index) {
-    for (var i = 0; i < markersArray.length; i++) {
+//Updates labels for markers so they match the new results order
+function changeMarkerLabel(name, index){
+    for(var i=0 ; i< markersArray.length ; i++){
         if (markersArray[i].getTitle() === name){
+            console.log("Marker: ");
+            console.log(markersArray[i]);
             markersArray[i].setLabel( {"text": labels[index]} );
         }
-    };
+    }
 }
 
-var closeEnough = function(destination) {
-    if (destination.duration.value > parseInt(duration) * 60) {
+
+
+//Determines if possible destination is within user's minutes parameter
+var closeEnough = function(destination){
+    if(destination.duration.value > parseInt(duration)*60)
+    {
         return false;
-    } else {
+    }
+    else{
         return true;
-    };
+    }
 }
 
-function isFoodTruck(result) {
+function isFoodTruck(result){
     var r = false;
-
     result.categories.forEach( function(category){
-        if (category.alias==="foodtrucks") {
+        if(category.alias==="foodtrucks"){
             r = true;
         }
     })

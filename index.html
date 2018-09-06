@@ -1,133 +1,155 @@
 <!DOCTYPE html>
 <html>
-
-<head>
+  <head>
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
     <meta charset="utf-8">
-    <title>yelphelp</title>
+    <title>Yelp Help</title>
     <meta name="google-site-verification" content="eccNJgK2hf4mO-EcukgXC3lq5MWfqWMtSw0KlAuuLDE" />
+   
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+   
     <link rel="stylesheet" type="text/css" media="screen" href="assets/css/reset.css" />
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp"
-        crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" media="screen" href="assets/css/menustyle.css" />
-    <link rel="stylesheet" type="text/css" media="screen" href="assets/css/searchedstyle.css" />
-</head>
+    <link rel="stylesheet" type="text/css" media="screen" href="assets/css/searchedstyle.css"/>
+    
+  </head>
+  <body>
 
-<body>
-    <div id="header">
-        <p id="header-ptag">
-            <span class="box3" id="head-left">
+    <!-- THIS IS HTML CODE FOR HEADER BAR AT TOP OF BROWSER WINDOW -->
+    <div id="header" class="topnav" style="display: none;">
+            <span><i class="fas fa-bars fa-3x lines" onclick="myFunction()"></i></span>
+            <!-- <button class="lines" onclick="myFunction()">Menu</button> -->
+
+            <p class="header-section" id="head-left">
                 <img id="logo-header" src="assets/images/Yelp-help-logo-large2.jpg" alt="logo">
+            </p>
+
+            <p class="header-section">
+                <i class="fas fa-utensils"></i>  
+                <input type="text" class="input-header" id="cuisine-header" onfocus="this.value=''" value="i.e. Italian, Sushi, Tacos...">
+            </p>
+
+            
+            <p class="header-section">
+                <span><i class="fas fa-map-pin"></i>  
+                <input type="text" class="input-header location-stuff" id="origin-header" onfocus="this.value=''" value="Enter starting address...">
             </span>
-
-            <span class="box3" id="input-header">
-                <i class="fas fa-utensils"></i>
-            </span>
-
-            <input type="text" class="input-header" id="cuisine-header" onfocus="this.value=''" value="You want tacos?">
-
-            <span class="box3">
-                <i class="fas fa-map-pin"></i>
-            </span>
-
-            <input type="text" class="input-header location-stuff" id="origin-header" onfocus="this.value=''" value="Where are you coming from?">
-
-            <span class="box3">
-                <i class="fas fa-car"></i>
-                <i class="fas fa-walking"></i>
-                <i class="fas fa-bus"></i>
-            </span>
-
-            <select name="transport-header" id="transport-header">
-                <option selected>Pick a transport method</option>
-                <option value="0">Driving</option>
-                <option value="1">Walking</option>
-                <option value="2">Transit</option>
-            </select>
-
-            <span class="box3">
+            </p>
+            
+            
+            <p class="header-section">
+                
+                <i class="fas fa-car"></i> 
+                <i class="fas fa-walking"></i> 
+                <i class="fas fa-bus"></i>  
+                <select name="transport-header" id="transport-header">
+                    <option selected>Pick a transport method</option>
+                    <option value="0">Driving</option>
+                    <option value="1">Walking</option>
+                    <option value="2">Transit</option>
+                </select>
+            </p>
+    
+        
+            <p class="header-section">
                 <i class="far fa-clock"></i>
-            </span>
+                <input type="text" class="input-header" id="duration-header" onfocus="this.value=''" value="Time in minutes...">
+            </p>
 
-            <input type="text" class="input-header" id="duration-header" onfocus="this.value=''" value="Close or really close??">
+            <p class="header-section">
+                <button id="btn-header">
+                        <i class="fas fa-search"></i> Search
+                </button>
+            </p>
 
-            <button id="btn-header">
-                <i class="fas fa-search"></i> Search
-            </button>
-        </p>
+            
+            
+    
     </div>
+    <div id="map" class="blurred"></div>
 
-    <div id="right-panel" class="blurred">
-        <h2 id="headline">
-            <i class="fas fa-list-ul"></i> Results
-        </h2>
+    <div id="right-panel" class="blurred" style="display: none;">
+        <!-- <div id="right-panel" class="blurred"> -->
 
-        <div id="sort-box">
-            <select id="selectBox" onchange="sortThis();">
-                <option value="0" selected> Sort by:</option>
-                <option value="1">Time</option>
-                <option value="2">Rating</option>
-                <option value="3">Price</option>
-            </select>
-        </div>
-
+        <h2 id="headline"><i class="fas fa-list-ul"></i> Results</h2>
+        <div id="sort-box"> 
+                <select id="selectBox" onchange="sortThis();">
+                    <option value="0" selected> Sort by:</option>
+                    <option value="1">Time</option>
+                    <option value="2">Rating</option>
+                    <option value="3">Price</option>
+                </select>
+            </div>
         <div id="output"></div>
     </div>
 
-    <div id="map" class="blurred"></div>
+    
+
+    <!-- THIS IS FLOATING FORM PANEL THAT APPEARS ON PAGE LOAD  -->
     <div id="floating-panel" class="noLocation">
+
         <div id="container">
-            <div id="logo-float-div">
-                <img id="logo-float" src="assets/images/Yelp-help-logo-large2.jpg" alt="logo">
-            </div>
+        
+        <div id="logo-float-div">
+            <img id="logo-float" src="assets/images/Yelp-help-logo-large2.jpg" alt="logo">
+        </div>
+  
+        <div class="label-float">
+            <p><i class="fas fa-utensils"></i> Type of food</p>
+        </div>
+        <input type="text" class="input-float" id="cuisine-float" onfocus="this.value=''" placeholder="i.e. Italian, Sushi, Tacos...">
+        <br>
 
-            <div class="label-float">
-                <p><i class="fas fa-utensils"></i> Type of food</p>
-            </div>
-
-            <input type="text" class="input-float" id="cuisine-float" onfocus="this.value=''" value="i.e. Italian, Sushi, Tacos...">
-
+        <!-- <div id="location-float-div" style="display:none;"></div> -->
             <div class="label-float location-stuff">
                 <p><i class="fas fa-map-pin"></i> Your location</p>
             </div>
-
-            <input type="text" class="input-float location-stuff" id="origin-float" onfocus="this.value=''" value="Enter starting address...">
-
-            <div class="label-float">
-                <p>
-                    <i class="fas fa-car"></i>
-                    <i class="fas fa-walking"></i>
-                    <i class="fas fa-bus"></i> Method of transportation
-                </p>
-            </div>
-            
-            <select name="transport-float" class="input-float" id="transport-float">
-                <option selected>Method of transportation...</option>
-                <option value="0">Driving</option>
-                <option value="1">Walking</option>
-                <option value="2">Transit</option>
-            </select>
-
-            <div class="label-float">
-                <p>
-                    <i class="far fa-clock"></i> Max travel time
-                </p>
-            </div>
-
-            <input type="text" class="input-float" id="duration-float" onfocus="this.value=''" value="Time in minutes...">
-
             <br>
+            <input type="text" class="input-float location-stuff" id="origin-float" onfocus="this.value=''" placeholder="Enter starting address...">
+        <!-- </div> -->
 
-            <button id="btn-float">Let's Go!</button>
+        <div class="label-float">
+            <p><i class="fas fa-car"></i> <i class="fas fa-walking"></i> <i class="fas fa-bus"></i> Method of transport</p>
         </div>
+        <!-- <input type="text" class="input"  id="transport" onfocus="this.value=''" value="Walk or drive?"> -->
+        <select name="transport-float" class="input-float" id="transport-float">
+            <option selected>Method of transport...</option>
+            <option value="0">Driving</option>
+            <option value="1">Walking</option>
+            <option value="2">Transit</option>            
+        </select>
+
+
+        <div class="label-float">
+            <p><i class="far fa-clock"></i> Max travel time</p>
+        </div>
+        <input type="text" class="input-float"  id="duration-float" onfocus="this.value=''" placeholder="Time in minutes...">
+        <br>
+        <button id="btn-float">Let's Go!</button>
+        </div>
+
+        </div>
+
     </div>
-    </div>
-    <!-- Script for maps api -->
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBOaX_9RIc24eqL--wXFjVUVfT6jCtcBco&callback=initMap">
-    </script>
+    <script>
+function myFunction() {
+    console.log("Lines was clicked");
+    var x = document.getElementById("header");
+    if (x.className === "topnav") {
+        x.className += " responsive";
+    } else {
+        x.className = "topnav";
+    }
+}
+</script>
+     <!-- Script for maps api -->
+     <script async defer
+     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBOaX_9RIc24eqL--wXFjVUVfT6jCtcBco&callback=initMap">
+     </script>
     <script src="assets/javascript/markers.js"></script>
     <script src="assets/javascript/form.js"></script>
-</body>
 
+  </body>
 </html>
