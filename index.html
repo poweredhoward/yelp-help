@@ -151,5 +151,22 @@ function myFunction() {
     <script src="assets/javascript/markers.js"></script>
     <script src="assets/javascript/form.js"></script>
 
+    <script>
+        function checkWidth() {
+        if ($(window).width() < 600) {
+                $('#map').addClass('full');
+                $("#map").css("width", '');
+            } else {
+                $('#map').removeClass('full');
+                $("#map").css("width", '70%');
+
+            }
+        }
+        
+        $(window).resize(checkWidth);
+        $("#btn-float").click(checkWidth);
+    </script> 
+    
+
   </body>
 </html>

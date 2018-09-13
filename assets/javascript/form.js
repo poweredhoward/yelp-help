@@ -46,7 +46,7 @@ $("#btn-float").click( function(){
     $("#right-panel").css("display", "inline-block" );
     $("#map").css("width", "70%" );   
     $(".blurred").css("filter", "blur(0px)" );
-    $("#map").css("transition-duration", "1s" );                    
+    // $("#map").css("transition-duration", "1s" );                    
     // $("#header").css("display" , "inline-block" );
     $("#cuisine-header").val(cuisine);
     $("#origin-header").val(origin);

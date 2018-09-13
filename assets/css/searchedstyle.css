@@ -4,8 +4,7 @@
     width: 100%;
     /* height: 200px; */
     overflow: auto;
-    padding: 20px;
-    padding-bottom: 30px;
+    padding: 10px;
     background-color: #d32323;
     border-bottom: 1px solid #949494;
     z-index: 4;
@@ -55,7 +54,7 @@ i {
     display: inline;
     color: #f2f2f2;
     text-align: center;
-    padding: 10px 10px;
+    /* padding: 10px 10px; */
     text-decoration: none;
     font-size: 17px;
 
@@ -85,6 +84,7 @@ i {
 
 }
 
+
 #logo-header { 
     width: 108px;
     height: 50px;
@@ -94,14 +94,14 @@ i {
 
 /* Panel to the right of the map that displays the resturned results and directions */
 #right-panel {
-    padding-top: 80px;
+    padding-top:55px;
     font-family: 'Roboto','sans-serif';
-    line-height: 30px;
+    line-height: 26px;
     padding-left: 10px;
     float: right;
     width: 28%;
     padding-left: 2%;
-    overflow: auto;
+    /* overflow: auto; */
     /* height: auto; */
     max-height: 88%;
 }
@@ -124,12 +124,25 @@ i {
 @media screen and (max-width: 600px) {
     #right-panel{
         display: block;
-        float: none;
-        padding-top: 10px;
+        /* float: none; */
+        /* padding: 10px; */
+        width: 100%;
     }
 
     #map{
-        transition: unset;
+        /* transition: unset; */
+        width: 100%;
+        /* display: block; */
+        /* position: relative; */
+        /* top: 45px; */
+        float: none;
+    }
+
+    .blurred{
+        width: 100%;
+    }
+
+    .gm-style{
         width: 100%;
     }
 }
@@ -141,6 +154,11 @@ i {
       float: left;
       display: block;
     
+    }
+
+    #header{
+        padding-bottom: 35px;
+
     }
 
     .header-section{
@@ -165,6 +183,7 @@ i {
       position: absolute;
       right: 100;
       top: 0;
+      /* margin: 12px; */
     }
     .topnav.responsive p {
       float: none;
