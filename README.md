@@ -28,4 +28,4 @@ Add screenshots or gif here
 
 ## How To Run Locally
 * Clone or download the repo `https://github.com/poweredhoward/group-planner.git`
-* Open in any web browser
+* Open `index.html` in any web browser
